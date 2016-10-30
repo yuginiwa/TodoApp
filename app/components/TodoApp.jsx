@@ -11,20 +11,24 @@ var TodoApp = React.createClass({
                searchText: "",
                todos: [
                     {
-                         id: 1,
-                         text: 'Play Games'
+                         id: uuid(),
+                         text: 'Play Games',
+                         completed: true
                     },
                     {
-                         id: 2,
-                         text: 'Eat Foods'
+                         id: uuid(),
+                         text: 'Eat Foods',
+                         completed: true
                     },
                     {
-                         id: 3,
-                         text: 'Sleep'
+                         id: uuid(),
+                         text: 'Sleep',
+                         completed: false
                     },
                     {
-                         id: 4,
-                         text: 'Repeat'
+                         id: uuid(),
+                         text: 'Repeat',
+                         completed: false
                     }
                ]
           };
@@ -35,7 +39,8 @@ var TodoApp = React.createClass({
                     ...this.state.todos,
                     {
                          id: uuid(),
-                         text: text
+                         text: text,
+                         completed: false
                     }
                ]
           });
@@ -46,12 +51,23 @@ var TodoApp = React.createClass({
                searchText: searchText.toLowerCase()
           });
      },
+     handleToggle: function (id) {
+          var updatedTodos = this.state.todos.map((todo) => {
+               if(todo.id === id) {
+                    todo.completed = !todo.completed;
+               }
+               
+               return todo;
+          });
+          
+          this.setState({todos: updatedTodos});
+     },
      render: function () {
           var {todos} = this.state;
           return (
                <div>
                     <SearchTodo onSearch={this.handleSearch}/>
-                    <TodoList todos={todos}/>
+                    <TodoList todos={todos} onToggle={this.handleToggle}/>
                     <AddTodoForm onAddTodo={this.handleAddTodo}/>
                </div>
           );
