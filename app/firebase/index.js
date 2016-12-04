@@ -2,11 +2,11 @@ import firebase from 'firebase';
 
 try {
   var config = {
-      apiKey: "AIzaSyDPXLVOd9hyc2XQHe9sAQQgSPG2UAxNGrw",
-      authDomain: "bayds-todo-app.firebaseapp.com",
-      databaseURL: "https://bayds-todo-app.firebaseio.com",
-      storageBucket: "bayds-todo-app.appspot.com",
-      messagingSenderId: "54160794707"
+      apiKey: process.env.API_KEY,
+      authDomain: process.env.AUTH_DOMAIN,
+      databaseURL: process.env.DATABASE_URL,
+      storageBucket: process.env.STORAGE_BUCKET,
+      messagingSenderId: process.env.MESSAGING_SENDER_ID
     };
   firebase.initializeApp(config);
 } catch (err) {
