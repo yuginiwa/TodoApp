@@ -42,16 +42,32 @@ export var startAddTodo = (text) => {
   }
 }
 
-export var toggleTodo = (id) => {
-  return {
-    type: 'TOGGLE_TODO',
-    id
-  };
-};
-
 export var addTodos = (todos) => {
   return {
     type: 'ADD_TODOS',
     todos
+  };
+};
+
+
+export var updateTodo = (id, updates) => {
+  return {
+    type: 'UPDATE_TODO',
+    id,
+    updates
+  };
+};
+
+export var startToggleTodo = (id, completed) => {
+  return (dispatch, state) => {
+    var todoRef = firebaseRef.child(`todos/${id}`);
+    var updates = {
+      completed,
+      completedAt: completed ? moment().unix() : null
+    };
+
+    return todoRef.update(updates).then(() => {
+      dispatch(updateTodo(id, updates));
+    })
   };
 };
